@@ -25,46 +25,164 @@
 </head>
 <body> 
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
+  <nav class="navbar navbar-expand-lg navbar-light bg-transparent shadow  bg-body rounded">
     <div class="container-fluid">
-      <a class="navbar-brand" href="/shop">Shopping Bazaar</a>
+      <div style="padding-right: 30px;">
+        <a href="/shop">
+        <img src="{% static 'shop/imgs/shopping_bazaar_red_h.png' %}">
+      </a>
+      </div>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/shop">Home</a>
+            
+            <a class="nav-link active nav_font" aria-current="page" href="/shop"><img src="{% static 'shop/imgs/home_icon1.png' %}" style="margin-top: -4px;">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+          <li class="nav-item nav_font">
+            <a class="nav-link" href="#"><img src="{% static 'shop/imgs/order_icon2.png' %}" style="margin-top: -4px;">Orders</a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown nav_font">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown
+              <img src="{% static 'shop/imgs/more_icon1.png' %}" style="margin-top: -4px;">More
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item nav_font" href="/">ABHP Home</a></li>
+              <li><a class="dropdown-item nav_font" href="#">Another action</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/shop/contact">Contact Us</a></li>
+              <li><a class="dropdown-item nav_font" href="/shop/contact">Contact Us</a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/shop/about">About Us</a>
+            <a class="nav-link nav_font" href="/shop/about"><img src="{% static 'shop/imgs/about_icon2.png' %}" style="margin-top: -2px;">About Us</a>
           </li>
         </ul>
-        <form class="d-flex">
+        
+        <form class="d-flex" style="padding-bottom: 4px;">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" style="opacity: 0.5">
-          <button class="btn btn-outline-dark" type="submit">Search</button>
+          
         </form>
-        <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" style="background-color: rgba(255, 140, 0, 0.555);" title="Cart">
-          Cart (<span id="cart">0</span>)
+        <button class="btn btn-outline-dark" type="button" data-bs-placement="bottom">
+          <img src="{% static 'shop/imgs/search_icon1.png'  %}" style="margin-top: -4px;">Search
         </button>
+        <button type="button" class="btn btn-secondary mx-2" data-bs-toggle="tooltip" data-bs-placement="bottom" style="background-color: rgba(255, 140, 0, 0.555);" title="Cart">
+          <img src="{% static 'shop/imgs/cart_icon1.png' %}" style="margin-right: 5px;">Cart (<span id="cart">0</span>)
+        </button>
+  
+  <!-- login --- logout changeing -->     
+  
+  {% if user.is_authenticated %}
+        <button type="button" class="btn btn-outline-success">Log Out</button>
+        <h3>{{request.user.first_name}}</h3>
+  
+   {% else %}     
+         <!-- Button trigger modal -->
+  
+  <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop"  style="margin-right: 8px;">
+    Sign Up
+  </button>
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Log In
+  </button>
+  {% endif %}
+  
+  
+  <!-- Modal signupppppp -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" style="background-color: Thistle;">
+        <div class="modal-header" style="background-color: rgb(204, 123, 164);">
+          <h5 class="modal-title grow" id="staticBackdropLabel">Sign Up</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+  
+  
+          <form action="/shop/signup/" method="POST"> {% csrf_token %}
+            <div class="mb-3">
+              <label for="semail" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="semail" aria-describedby="emailHelp" name="semail">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="sf_name" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="sf_name" name="sf_name">
+            </div>
+  
+            <div class="mb-3">
+              <label for="sl_name" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="sl_name" name="sl_name"> 
+            </div>
+  
+            <div class="mb-3">
+              <label for="pass1" class="form-label">Choose Password</label>
+              <input type="password" class="form-control" id="pass1" name="pass1">
+            </div><div class="mb-3">
+              <label for="pass2" class="form-label">Confirm Password</label>
+              <input type="password" class="form-control" id="pass2" name="pass2">
+            </div>
+  
+            
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+              <label class="form-check-label" for="exampleCheck1">I am not robot.</label>
+            </div>
+            <button type="submit" class="btn btn-success">Sign Up</button>
+  
+                
+          </form>
+  
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
+  
+        
+  
+        <!-- Modal loginnnn -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="background-color: Thistle;">
+              <div class="modal-header" style="background-color: rgb(204, 123, 164);">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+  
+                <form action="/shop/login/" method="POST"> {% csrf_token %}
+                
+                <div class="mb-3">
+                  <label for="lemail" class="form-label">Email address</label>
+                  <input type="email" class="form-control" id="lemail" name="lemail" aria-describedby="emailHelp">
+                </div>
+  
+                <div class="mb-3">
+                  <label for="lpass" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="lpass" name="lpass">
+                </div><div class="mb-3">
+  
+              </div>
+              
+                <button type="submit" class="btn btn-primary">Log In</button>
+              
+              
+            </form>
+  
+            </div>
+          </div>
+        </div>
+  
       </div>
     </div>
     </nav>
-  
+    
 
  <!-- Optional JavaScript; choose one of the two! -->
 
