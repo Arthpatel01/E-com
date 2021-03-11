@@ -1,0 +1,32 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block body %}
+
+{% for p in product %}
+
+<div class="container" style="align-items: center; background-color: goldenrod;">
+    <div class="row">
+        <div class="col-md-4" >
+            <div class="row">
+                <img src="/media/{{p.image}}" width="auto" height="auto">
+            </div>    
+        </div>
+        <div class="col-md-8">
+            
+            <h5>{{p.product_name}}</h5>
+            <h6>{{p.id}}</h6>
+            <p>{{p.desc}}</p>
+            
+            <div>
+            <a href="/shop/checkout/{{p.id}}" class="btn btn-primary">Buy Now</a>
+            </div> 
+        </div>
+
+    </div>
+</div>
+    
+{% endfor %}    
+
+{% endblock body %}
