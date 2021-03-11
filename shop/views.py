@@ -10,10 +10,10 @@ def index(request):
     products = Product.objects.all()
     
     params = {'product': products}
-    return render(request, 'shop\index.html', params)
+    return render(request, 'index.html', params)
 
 def about(request):
-    return render(request, "shop\s_about.html")
+    return render(request, "s_about.html")
 
 def contact(request):
     if request.method=="POST":
@@ -25,7 +25,7 @@ def contact(request):
         cont = Contact(name=name, email=email, phone=phone, help1=help1)
         cont.save()
         messages.info(request, 'Your Problem is submited. Thank You!')
-    return render(request, 'shop\contact_us.html')
+    return render(request, 'contact_us.html')
 
 def tracker(request):
     return HttpResponse("This is shop tracker")
@@ -37,7 +37,7 @@ def productview(request, myid):
 
     product = Product.objects.filter(id=myid)
     
-    return render(request, "shop\prodview.html", {'product':product})
+    return render(request, "prodview.html", {'product':product})
 
 def checkout(request, id_b):
     product = Product.objects.filter(id=id_b)
@@ -60,7 +60,7 @@ def checkout(request, id_b):
         order = Orders(name=name, email=email, phone=phone, address=address, city=city, state=state, zipcode=zipcode, order_date=orderdate, prod_id=prod_id, prod_name=prod_name, prod_price=prod_price, quantity=quantit, total_price=total )
         order.save()
 
-    return render(request, 'shop\checkout.html', {'product':product})
+    return render(request, 'checkout.html', {'product':product})
 
 
 def handleSignup(request):
