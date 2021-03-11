@@ -1,0 +1,135 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block title %} Chech-Out {% endblock title %}
+{% block head %}
+<script>
+    function myfun() {
+        document.getElementById('t_p').innerHTML = document.getElementById("quant").value * document.getElementById("p1").innerHTML; 
+    }
+    
+</script>
+{% endblock head %}
+
+{% block body %}
+{% for p in product %}
+
+
+
+<form id="fm" class="" action=" " method="POST" >{% csrf_token %}
+<div class="container" style="background-color: rgb(130, 199, 124); margin-top: 10px; padding-top: 10px ">
+    <h2 style="text-align: center; background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-shading-background-abstract-colorful-background-colorful-art-image_22644.jpg');">Step 1 - Review Your Cart Items</h2>
+    <ul class="list-group" style="padding-bottom: 10px;">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div class="col-sm-10">  
+            <b>Product Name:  {{p.product_name}}</b>
+          </div>
+          <div class="col-sm-2"><b>price:</b> 
+            <span class="badge bg-primary rounded-pill" id="p1">{{p.price}}</span>
+          </div>  
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div class="col-sm-4">Quality:
+                <select  id="quant" name="quant" class="form-select form-select-md" aria-label=".form-select-lg example" onchange="myfun()">
+                    
+                    <option selected value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </div>  
+            <div class="col-sm-4">
+                Extraaa space
+            </div> 
+            <div class="col-md-2"><b>Total Price:</b>     
+                <span class="badge bg-primary rounded-pill" id='t_p'>{{p.price}}</span>
+            </div>    
+        </li>
+        <li class="list-group-item d-flex justify-content-between align-items-center" id="dis">
+          A third list item
+          <span class="badge bg-primary rounded-pill" id="kem">1</span>
+          
+        </li>
+      </ul>
+
+</div>
+
+
+<div class="container" style="background-color: rgb(130, 199, 124); margin-top: 50px; padding-top: 10px; padding-bottom: 10px; ">
+    <h2  class="" style="text-align: center; background-image: url('https://png.pngtree.com/thumb_back/fh260/background/20190221/ourmid/pngtree-shading-background-abstract-colorful-background-colorful-art-image_22644.jpg');">Step 2 - Enter Address & Other Details</h2>
+
+   
+    
+      <div class="row g-3">
+      <script>
+        document.getElementById('fm').action = '/shop/checkout/' + {p.product_id};
+      </script>
+        <div class="col-md-6">
+            <label for="name_o" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name_o" name="name_o" placeholder="Enter Your Full Name">
+        </div>
+        <div class="col-md-6">
+          <label for="email_o" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email_o" name="email_o">
+        </div>
+
+        
+
+        <div class="col-md-12">
+            <label for="phone_o" class="form-label">Phone</label>
+            <input type="tel" class="form-control" id="phone_o" name="phone_o">
+        </div>
+        
+        <div class="col-12">
+          <label for="add_o" class="form-label">Address</label>
+          <input type="text" class="form-control" id="add_o" name="add_o" placeholder="1234 Main St">
+        </div>
+        <div class="col-12">
+          <label for="add_o_2" class="form-label">Address 2</label>
+          <input type="text" class="form-control" id="add_o_2" name="add_o_2" placeholder="Apartment, studio, or floor">
+        </div>
+        <div class="col-md-6">
+          <label for="city_o" class="form-label">City</label>
+          <input type="text" class="form-control" id="city_o" name="city_o">
+        </div>
+        <div class="col-md-4">
+          <label for="state_o" class="form-label">State</label>
+          <select id="state_o" name="state_o" class="form-select">
+            <option selected>Choose...</option>
+            <option>Gujarat</option>
+            <option>Rajasthan</option>
+            <option>Chhattisgarh</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <label for="zip_o" class="form-label">Zip</label>
+          <input type="text" class="form-control" id="zip_o" name="zip_o">
+        </div>
+        <div class="col-12">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="gridCheck">
+            <label class="form-check-label" for="gridCheck">
+              I am not Robot.
+            </label>
+           
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Procced</button>
+        </div>
+      </div>
+      
+
+</div>
+
+</form>
+{% endfor %}
+
+{% endblock body %}

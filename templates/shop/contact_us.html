@@ -1,0 +1,48 @@
+{% extends 'shop/base.html' %}
+
+{% load static %}
+
+{% block body %}
+<body style="background-color: rgb(233, 212, 233);">
+
+<div class="container my-3">
+    <h3>Contact Us</h3>
+    <form action="/shop/contact/" method="POST">{% csrf_token %}
+        <div class="form-group" >
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name" required>
+        </div><br>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email-Address">
+        </div><br>
+
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone or Mobile Number">
+        </div><br>
+
+        <div class="form_group">
+            <label for="help">How May We Help You?</label>
+            <textarea class="form-control" id="help" name="help" rows="4" required></textarea>
+        </div><br>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags %}
+                <script>
+                    alert('{{message}}')
+                </script>
+                {% endif %}
+            {% endfor %}    
+        {% endif %}
+
+    </form>
+
+</div>
+
+</body>
+
+{% endblock body %}
